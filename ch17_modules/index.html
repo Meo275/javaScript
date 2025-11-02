@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>🍎🍌 Simple Fruit Cart</title>
+    <style>
+      body {
+        font-family: "Poppins", Arial, sans-serif;
+        background-color: #f9fafb;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        max-width: 900px;
+      }
+
+      .products,
+      .cart {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        flex: 1 1 350px;
+        min-height: 250px;
+      }
+
+      .product-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .product-card:last-child {
+        border-bottom: none;
+      }
+
+      .add-btn {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      .add-btn:hover {
+        background-color: #218838;
+      }
+
+      .cart ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .cart li {
+        margin: 6px 0;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #total {
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .clear-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background-color 0.2s ease;
+      }
+
+      .clear-btn:hover {
+        background-color: #b02a37;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🍎🍌 Fruit Shopping Cart</h1>
+
+    <div class="container">
+      <!-- Products Section -->
+      <div class="products">
+        <h2>Available Fruits</h2>
+
+        <div class="product-card">
+          <span>🍎 Apple - €2</span>
+          <button class="add-btn" onclick="addToCart('Apple', 2)">
+            Add to Cart
+          </button>
+        </div>
+
+        <div class="product-card">
+          <span>🍌 Banana - €1</span>
+          <button class="add-btn" onclick="addToCart('Banana', 1)">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Cart Section -->
+      <div class="cart">
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+        <p id="total">Total: €0</p>
+        <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+      </div>
+    </div>
+    <script type="module" src="main.js"></script>
+    <script>
+      let cart = [];
+
+      function addToCart(name, price) {
+        cart.push({ name, price });
+        updateCart();
+      }
+
+      function updateCart() {
+        const cartList = document.getElementById("cart-items");
+        const totalDisplay = document.getElementById("total");
+
+        cartList.innerHTML = "";
+
+        cart.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = `${item.name} - €${item.price}`;
+          cartList.appendChild(li);
+        });
+
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        totalDisplay.textContent = `Total: €${total}`;
+      }
+
+      function clearCart() {
+        cart = [];
+        updateCart();
+      }
+    </script>
+  </body>
+</html>
